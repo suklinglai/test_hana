@@ -1,0 +1,19 @@
+ID: demo
+_schema-version: '2.1'
+version: 0.0.1
+
+modules:
+ - name: demo
+   type: hdb
+   path: demo
+   requires:
+    - name: hdi_demo
+
+resources:
+ - name: hdi_demo
+   parameters:
+      config:
+         schema: demo_1
+   properties:
+      hdi-container-name: ${service-name}
+   type: com.sap.xs.hdi-container

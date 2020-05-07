@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" id="demo.demo.views::test_view1" applyPrivilegeType="NONE" dataCategory="DIMENSION" dimensionType="STANDARD" schemaVersion="3.0" outputViewType="Projection" cacheInvalidationPeriod="NONE" enforceSqlExecution="false">
+<descriptions defaultDescription="test_view1"/>
+<localVariables/>
+<variableMappings/>
+<dataSources>
+  <DataSource id="demo.demo.tables::CUAND_CE_IA_RT">
+    <resourceUri>demo.demo.tables::CUAND_CE_IA_RT</resourceUri>
+  </DataSource>
+  <DataSource id="demo.demo.tables::CUAND_CE_IC_ROOT">
+    <resourceUri>demo.demo.tables::CUAND_CE_IC_ROOT</resourceUri>
+  </DataSource>
+</dataSources>
+<calculationViews>
+  <calculationView xsi:type="Calculation:ProjectionView" id="IA_RT">
+    <viewAttributes>
+      <viewAttribute id="DB_KEY"/>
+      <viewAttribute id="ID_ORIGIN"/>
+      <viewAttribute id="ID"/>
+      <viewAttribute id="CONTACT_KEY"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="demo.demo.tables::CUAND_CE_IA_RT"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="IC_ROOT" filterExpressionLanguage="COLUMN_ENGINE">
+    <viewAttributes>
+      <viewAttribute id="DB_KEY"/>
+      <viewAttribute id="NAME_FIRST"/>
+      <viewAttribute id="NAME_LAST"/>
+      <viewAttribute id="IC_TYPE"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="demo.demo.tables::CUAND_CE_IC_ROOT"/>
+    <filter>&quot;IC_TYPE&quot;='01'</filter>
+  </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="J_IA_IC" cardinality="CN_N" joinType="inner">
+    <viewAttributes>
+      <viewAttribute id="DB_KEY"/>
+      <viewAttribute id="NAME_FIRST"/>
+      <viewAttribute id="NAME_LAST"/>
+      <viewAttribute id="ID_ORIGIN"/>
+      <viewAttribute id="ID"/>
+      <viewAttribute hidden="true" id="JOIN$CONTACT_KEY$DB_KEY"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="IA_RT">
+      <mapping xsi:type="Calculation:AttributeMapping" target="ID_ORIGIN" source="ID_ORIGIN"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="ID" source="ID"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$CONTACT_KEY$DB_KEY" source="CONTACT_KEY"/>
+    </input>
+    <input node="IC_ROOT">
+      <mapping xsi:type="Calculation:AttributeMapping" target="DB_KEY" source="DB_KEY"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="NAME_FIRST" source="NAME_FIRST"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="NAME_LAST" source="NAME_LAST"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$CONTACT_KEY$DB_KEY" source="DB_KEY"/>
+    </input>
+    <joinAttribute name="JOIN$CONTACT_KEY$DB_KEY"/>
+  </calculationView>
+</calculationViews>
+<logicalModel id="J_IA_IC">
+  <attributes>
+    <attribute id="DB_KEY" order="1" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="DB_KEY"/>
+      <keyMapping columnObjectName="J_IA_IC" columnName="DB_KEY"/>
+    </attribute>
+    <attribute id="NAME_FIRST" order="2" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="NAME_FIRST"/>
+      <keyMapping columnObjectName="J_IA_IC" columnName="NAME_FIRST"/>
+    </attribute>
+    <attribute id="NAME_LAST" order="3" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="NAME_LAST"/>
+      <keyMapping columnObjectName="J_IA_IC" columnName="NAME_LAST"/>
+    </attribute>
+    <attribute id="ID_ORIGIN" order="4" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="ID_ORIGIN"/>
+      <keyMapping columnObjectName="J_IA_IC" columnName="ID_ORIGIN"/>
+    </attribute>
+    <attribute id="ID" order="5" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="ID"/>
+      <keyMapping columnObjectName="J_IA_IC" columnName="ID"/>
+    </attribute>
+  </attributes>
+  <calculatedAttributes/>
+  <baseMeasures/>
+  <calculatedMeasures/>
+  <restrictedMeasures/>
+</logicalModel>
+<layout>
+  <shapes>
+    <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+      <upperLeftCorner x="221.11302679000914" y="112"/>
+    
+      <rectangleSize width="160"/>
+    </shape>
+  
+    <shape expanded="true" modelObjectName="IA_RT" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="100.00000000000001" y="366.9999988079071"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+    <shape expanded="true" modelObjectName="IC_ROOT" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="302.00000000000006" y="356.9999988079071"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+    <shape expanded="true" modelObjectName="J_IA_IC" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="221.11302679000914" y="217"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+    <shape modelObjectName="IA_RT" modelObjectNameSpace="J_IA_IC" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="136.0234375"/>
+    </shape>
+    <shape modelObjectName="IC_ROOT" modelObjectNameSpace="J_IA_IC" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="136.0234375"/>
+    </shape>
+  </shapes>
+</layout>
+</Calculation:scenario>

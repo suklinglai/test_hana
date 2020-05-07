@@ -1,0 +1,23 @@
+{
+    "format_version": 1,
+    "imports": [
+        {
+            "target_table": "demo.demo.tables::YY1_1F400F8CF7F5",
+            "source_data": {
+                "data_type": "CSV",
+                "file_name": "demo.demo.tables::crystal_ball.csv",
+                "has_header": true
+            },
+            "import_settings": {
+                "import_columns": [
+                	"SAP_UUID",
+                    "CRB_ID",
+					"CRM_ID",
+					"INTENT_LEVEL_ID",
+					"LOB_ID",
+					"LAST_CHANGED"
+                ]
+            }
+        }
+    ]
+}
